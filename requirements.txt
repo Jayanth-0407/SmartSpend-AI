@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-multipart
+groq
+langchain-groq
+langgraph
+langgraph-checkpoint-sqlite
+pydantic
+python-dotenv

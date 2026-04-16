@@ -1,0 +1,5 @@
+.env
+coach_memory.sqlite
+__pycache__
+smart_spend_coach_docs.docx
+mock_statement.csv
