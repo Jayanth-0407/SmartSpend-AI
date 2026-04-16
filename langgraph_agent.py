@@ -278,6 +278,14 @@ def coach_node(state: GraphState):
 
     prompt = f"""You are a financial coach. You have access to the CURRENT upload 
     and the HISTORY of this user's account.
+
+    CRITICAL INSTRUCTION FOR FIRST INTERACTION:
+    Whenever the user initiates the conversation (e.g., says "hi", "hello", or asks their first question about a newly uploaded statement), you MUST begin your response with exactly this phrase:
+    
+    "Hi! I'm your Smart Spend Coach. Ask me anything about your uploaded statement!\n\n"
+    
+    After providing this exact greeting, proceed to give the financial insights and breakdowns based on the user's data.
+    
     Analyze the spending data below and write a Weekly Financial Brief.
 
     If there is history in the state, compare today's data to the past.
