@@ -25,11 +25,11 @@ class TransactionList(BaseModel):
 
 app=FastAPI(title="Smart Spend Coach API")
 
-app.add_middleware( #checkpoint each request has to cross before reaching endpoint(eg /upload etc)
-    CORSMiddleware,      #allows the react app to send requests to fastapi backend
-    allow_origins=["http://localhost:3000","https://smart-spend-ai-front-end.vercel.app"],  #allow cross-origin req ONLY from this URL
+app.add_middleware( 
+    CORSMiddleware,      
+    allow_origins=["http://localhost:3000","https://smart-spend-ai-front-end.vercel.app"],  
     allow_credentials=True,
-    allow_methods=['*'], #allow react to use any HTTP method(CRUD Operations)
+    allow_methods=['*'], 
     allow_headers=['*']  
 )
 
