@@ -49,13 +49,13 @@ structured_llm = llm.with_structured_output(TransactionList) #return data in pyd
 
 @app.post("/upload")  #sends a large payload(our file) to server to process our file
 
-def process_statement(file: UploadFile = File(...)):
+async def process_statement(file: UploadFile = File(...)):
     if not file.filename.lower().endswith(('.csv', '.txt')):
         raise HTTPException(status_code=400, detail="Only CSV or TXT files are supported.")
     
     try:
         # 2. Read into memory
-        contents = file.file.read()
+        contents = await file.read()
         
         #Decoding the file
         try:
