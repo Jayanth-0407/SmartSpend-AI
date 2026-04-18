@@ -82,13 +82,8 @@ async def process_statement(file: UploadFile = File(...)):
         
         print(f"Processing file: {file.filename}...")
         extracted_data = structured_llm.invoke(prompt)
-        #before: Transaction(date='2026-03-05', amount=640.0)
-        #LangGraph understands dictionary, not Pydantic objects
         transaction_dicts = [t.model_dump() for t in extracted_data.transactions]
-        # model_dump() converts pydantic objects to dictionaries 
-        # after {'date': '2026-03-05', 'amount': 640.0} 
-        
-        # Running LangGraph Financial Coach Pipeline
+
         print("Running AI Financial Coach analysis...")
         coach_results = run_financial_coach(
             transactions=transaction_dicts,
@@ -97,8 +92,8 @@ async def process_statement(file: UploadFile = File(...)):
         
         #Return to frontend
         return {
-            "transactions": transaction_dicts, # The raw data for your tables
-            "insights": coach_results          # The LangGraph analysis for your dashboard
+            "transactions": transaction_dicts, 
+            "insights": coach_results          
         }
 
     except Exception as e:
@@ -113,10 +108,9 @@ class ChatRequest(BaseModel):
 
 def chat_with_coach(request: ChatRequest):
     try:
-        #To see what React is sending
 
         for i, msg in enumerate(request.history):
-            # Print the first 50 characters of each message
+            # Prints the first 50 characters of each message
             print(f"  [{i}] {msg['role'].upper()}: {msg['content'][:50]}...")
             
         config = {"configurable": {"thread_id": request.user_id}}
