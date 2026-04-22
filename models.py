@@ -85,9 +85,14 @@ async def process_statement(file: UploadFile = File(...)):
         transaction_dicts = [t.model_dump() for t in extracted_data.transactions]
 
         print("Running AI Financial Coach analysis...")
+
+        calculated_income = sum(abs(t.get('amount', 0)) for t in transaction_dicts if t.get('amount', 0) < 0)
+        final_income = calculated_income if calculated_income > 0 else 85000.0
+        
         coach_results = run_financial_coach(
             transactions=transaction_dicts,
-            user_id="test_user_1"
+            user_id="test_user_1",
+            total_income=final_income
         )
         
         #Return to frontend
